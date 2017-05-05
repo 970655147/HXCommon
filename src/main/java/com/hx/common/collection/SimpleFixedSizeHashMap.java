@@ -22,9 +22,6 @@ public class SimpleFixedSizeHashMap<K, V> extends LinkedHashMap<K, V> {
      *
      * @param initialCapacity ≥ı º»›¡ø
      * @param loadFactor      loadFactor
-     * @return
-     * @author
-     * @date
      * @since 1.0
      */
     public SimpleFixedSizeHashMap(int initialCapacity, float loadFactor, int fixedSize) {

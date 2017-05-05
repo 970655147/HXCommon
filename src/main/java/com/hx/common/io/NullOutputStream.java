@@ -9,10 +9,15 @@ package com.hx.common.io;
 import java.io.IOException;
 import java.io.OutputStream;
 
-// 将给定的需要写出的数据丢弃
+/**
+ * 直接将给定的需要写出的数据丢弃
+ *
+ * @author Jerry.X.He <970655147@qq.com>
+ * @version 1.0
+ * @date 5/5/2017 8:14 PM
+ */
 public class NullOutputStream extends OutputStream {
 
-	// doNothing
 	@Override
 	public void write(int b) throws IOException {
 

@@ -6,40 +6,57 @@
 
 package com.hx.common.awt;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// 拖拽组件的MouseListener
+/**
+ * 拖拽组件的MouseListener
+ *
+ * @author Jerry.X.He <970655147@qq.com>
+ * @version 1.0
+ * @date 5/5/2017 7:44 PM
+ */
 public class DragMouseAdapter extends MouseAdapter {
 
-	// 依赖的组件, 以及拖拽前的x, y
-	protected Component component;
-	private int lastX = -1;
-	private int lastY = -1;
-	
-	// 初始化
-	public DragMouseAdapter(Component component) {
-		super();
-		this.component = component;
-	}
-	
-	// 记录拖拽之前的位置
-	@Override
-	public void mousePressed(MouseEvent e) {
-		lastX = e.getX();
-		lastY = e.getY();
-	}
-	
-	// 拖拽的时候, 执行业务逻辑, 更新位置
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		if(lastX != -1) {
-			java.awt.Point point = component.getLocation();
-			point.x += e.getX() - lastX;
-			point.y += e.getY() - lastY;
-			component.setLocation(point );
-		}
-	}
-	
+    /**
+     * 依赖的组件
+     */
+    protected Component component;
+    /**
+     * 拖拽前的x
+     */
+    private int lastX = -1;
+    /**
+     * 拖拽前的y
+     */
+    private int lastY = -1;
+
+    /**
+     * 初始化
+     *
+     * @param component 依赖的父元素
+     * @since 1.0
+     */
+    public DragMouseAdapter(Component component) {
+        super();
+        this.component = component;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        lastX = e.getX();
+        lastY = e.getY();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (lastX != -1) {
+            java.awt.Point point = component.getLocation();
+            point.x += e.getX() - lastX;
+            point.y += e.getY() - lastY;
+            component.setLocation(point);
+        }
+    }
+
 }

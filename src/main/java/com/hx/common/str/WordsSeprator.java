@@ -25,33 +25,75 @@ import java.util.Set;
 public final class WordsSeprator implements Iterator<String> {
 
     /**
-     * 给定的字符串, 分隔符与下一个位置的映射, 需要跳过的符号对[这两个符号对之间的内容, 不做处理]
+     * 给定的字符串
      */
     private String str;
+    /**
+     * 分隔符与下一个位置的映射
+     */
     private Map<String, Integer> sepToPos;
+    /**
+     * 需要跳过的符号对[这两个符号对之间的内容, 不做处理]
+     */
     private Map<String, String> escapeMap;
     /**
-     * 当前遍历到的索引, 下一个待取的字符串[并不一定是next()返回的结果, 可能拿到分隔符]
-     * 调用next()方法之后, 缓存的next()结果, 以及其位置
-     * 调用next()方法之后, 缓存的上上一个next()的结果, 以及其位置
+     * ,
+     * , 以及其
+     *
+     */
+    /**
+     * 当前遍历到的索引
      */
     private int idx;
+    /**
+     * 下一个待取的字符串[并不一定是next()返回的结果, 可能拿到分隔符]
+     */
     private String next;
+    /**
+     * 调用next()方法之后, 缓存的next()结果
+     */
     private String current;
+    /**
+     * 调用next()方法之后, 缓存的next()的位置
+     */
     private int currentStartIdx;
+    /**
+     * 调用next()方法之后, 缓存的上上一个next()的结果
+     */
     private String prev;
+    /**
+     * 调用next()方法之后, 缓存的上上一个next()的位置
+     */
     private int prevStartIdx;
     /**
-     * 是否获取分隔符, 是否获取空白字符串
-     * 下一"回合"是否是获取分隔符的回合[如果是false, 则表示当前回合获取分隔符], 缓存的调用next()之后的上一个分隔符
+     * 是否获取分隔符
      */
     private boolean gotSep;
+    /**
+     * 是否获取空白字符串
+     */
     private boolean gotEmptyStr;
+    /**
+     * 下一"回合"是否是获取分隔符的回合[如果是false, 则表示当前回合获取分隔符]
+     */
     private boolean isNextSep;
+    /**
+     * 缓存的调用next()之后的上一个分隔符
+     */
     private String lastSep;
 
-    // 初始化
-    public WordsSeprator(String str, Set<String> seps, Map<String, String> escapeMap, boolean gotSep, boolean gotEmptyStr) {
+    /**
+     * 初始化
+     *
+     * @param str         给定的字符串
+     * @param seps        分隔符列表
+     * @param escapeMap   需要跳过的符号对
+     * @param gotSep      是否获取分隔符
+     * @param gotEmptyStr 是否获取空字符串
+     * @since 1.0
+     */
+    public WordsSeprator(String str, Set<String> seps, Map<String, String> escapeMap,
+                         boolean gotSep, boolean gotEmptyStr) {
         AssertUtils.assert0(str != null, "str can't be null !");
 
         this.str = str;
@@ -159,7 +201,7 @@ public final class WordsSeprator implements Iterator<String> {
         prevStartIdx = currentStartIdx;
         // lastSep represents there are no more next(), except current next
         currentStartIdx = idx - next.length() - ((lastSep != null) ? lastSep.length() : 0);
-        if(gotSep && (!isNextSep)) {
+        if (gotSep && (!isNextSep)) {
             currentStartIdx += next.length();
         }
         current = next;

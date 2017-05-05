@@ -8,7 +8,13 @@ package com.hx.common.file;
 
 import com.hx.common.util.InnerTools;
 
-// FileNameMatcher
+/**
+ * FileNameMatcher
+ *
+ * @author Jerry.X.He <970655147@qq.com>
+ * @version 1.0
+ * @date 5/5/2017 8:37 PM
+ */
 public final class FileNameMatcher {
 
     // disable constructor
@@ -16,26 +22,47 @@ public final class FileNameMatcher {
         InnerTools.assert0("can't instantiate !");
     }
 
-    // 所支持的通配符, '?' 可以表示一个任意字符, '*' 表示任意个任意字符[具体的匹配由isGreedy进行约束]
-    // 因为普通场景下面, 没有'?', '*' 的文件名, 因此这里便没有写'?', '*'本身的表示[如果 要写的话, 模拟转义吧][在搜索wildCard的时候, 不能搜索转义的'?', '*', 在匹配的时候, 将'\?', '\*'替换为真实的字符串表示的'?', '*' ]
-    // 一个pattern中各个子pattern的分隔符, 各个子pattern之间的关系为 "短路或"
-    // 这里 并没有约定"短路与"的场景[优先级问题 会导出很多问题], 请自行使用match进行实现吧
+    /**
+     * 所支持的通配符, '?' 可以表示一个任意字符, '*' 表示任意个任意字符[具体的匹配由isGreedy进行约束]
+     * 因为普通场景下面, 没有'?', '*' 的文件名, 因此这里便没有写'?', '*'本身的表示[如果 要写的话, 模拟转义吧][在搜索wildCard的时候, 不能搜索转义的'?', '*', 在匹配的时候, 将'\?', '\*'替换为真实的字符串表示的'?', '*' ]
+     * 一个pattern中各个子pattern的分隔符, 各个子pattern之间的关系为 "短路或"
+     * 这里 并没有约定"短路与"的场景[优先级问题 会导出很多问题], 请自行使用match进行实现吧
+     */
+    /**
+     * 匹配一个字符的通配符
+     */
     public static final Character MATCH_ONE = '?';
+    /**
+     * 匹配多个字符的通配符
+     */
     public static final Character MATCH_MULTI = '*';
+    /**
+     * 通配符列表
+     */
     public static final char[] WILDCARDS = new char[]{MATCH_ONE, MATCH_MULTI};
+    /**
+     * ?的索引
+     */
     public static final int MATCH_ONE_IDX = 0;
+    /**
+     * *的索引
+     */
     public static final int MATCH_MULTI_IDX = 1;
-
+    /**
+     * 分割多个pattern的符号
+     */
     public static final String PATTERN_SEP = "\\|";
 
     /**
+     * 判断给定的fileName是否匹配给定的pattern
+     *
      * @param fileName 给定的文件名
      * @param pattern  给定的pattern
      * @param isGreedy 表示是否采用贪婪匹配的模式[也就是通配符'*'是否贪婪]
-     * @return
-     * @Name: match
-     * @Description: 判断给定的fileName是否匹配给定的pattern
-     * @Create at 2016年8月6日 下午3:15:28 by '970655147'
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:39 PM
+     * @since 1.0
      */
     public static boolean match(String fileName, String pattern, boolean isGreedy) {
         // add params' verify at 2016.08.28
@@ -56,31 +83,24 @@ public final class FileNameMatcher {
         return false;
     }
 
-    /**
-     * @param fileName 给定的文件名
-     * @param pattern  给定的pattern
-     * @return
-     * @Name: match
-     * @Description: isGreedy 默认为false
-     * @Create at 2016年8月6日 下午3:16:51 by '970655147'
-     */
     public static boolean match(String fileName, String pattern) {
         return match(fileName, pattern, false);
     }
 
     /**
+     * 判定str01[start01, start01+len], str02[start02, start02+len]在区间是否相同
+     *
      * @param str01   字符串1
-     * @param start01 字符串1的开始偏移
+     * @param start01 字符串1开始比较的索引
      * @param str02   字符串2
-     * @param start02 字符串2的开始偏移
-     * @param len     需要比较的长度
-     * @return
-     * @Name: equalsIgnoreCase
-     * @Description: 判定str01, str02是否相等
-     * @Create at 2016年8月6日 下午3:20:51 by '970655147'
+     * @param start02 字符串2开始比较的索引
+     * @param len     比较的子串的长度
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:40 PM
+     * @since 1.0
      */
     public static boolean equalsInRange(String str01, int start01, String str02, int start02, int len) {
-//		return str01.equalsIgnoreCase(str02);
         for (int i = 0; i < len; i++) {
             if (str01.charAt(start01 + i) != str02.charAt(start02 + i)) {
                 return false;
@@ -90,24 +110,28 @@ public final class FileNameMatcher {
     }
 
     /**
-     * @param str 判断给定的字符串是否为空
-     * @return
-     * @Name: isEmpty
-     * @Description: 判定给定的字符串是否为空字符串
-     * @Create at 2016年8月6日 下午3:21:01 by '970655147'
+     * 判断给定的字符串是否为空
+     *
+     * @param str 给定的字符串
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:41 PM
+     * @since 1.0
      */
     public static boolean isEmpty(String str) {
         return (str == null) || "".equals(str.trim());
     }
 
     /**
+     * match的核心业务方法
+     *
      * @param fileName 给定的文件名
      * @param pattern  给定的pattern
      * @param isGreedy 表示是否采用贪婪匹配的模式[也就是通配符'*'是否贪婪]
-     * @return
-     * @Name: match0
-     * @Description: match的核心业务方法
-     * @Create at 2016年8月6日 下午3:28:45 by '970655147'
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:42 PM
+     * @since 1.0
      */
     private static boolean match0(String fileName, String pattern, boolean isGreedy) {
         pattern = preparePattern(pattern);
@@ -184,8 +208,16 @@ public final class FileNameMatcher {
         return equalsInRange(fileName, fileNameIdx, pattern, patternIdx, Math.min(fileName.length() - fileNameIdx, pattern.length() - patternIdx));
     }
 
-    // 预处理pattern
-    // 1. 防止类似的情况发生 "**", "*?"
+    /**
+     * 预处理pattern
+     * 1. 防止类似的情况发生 "**", "*?"
+     *
+     * @param pattern 给定的pattern
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:42 PM
+     * @since 1.0
+     */
     private static String preparePattern(String pattern) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0, len = pattern.length(); i < len; i++) {
@@ -204,19 +236,43 @@ public final class FileNameMatcher {
         return sb.toString();
     }
 
-    // 创建一个通配符的索引的数组
+    /**
+     * 创建一个通配符的索引的数组
+     *
+     * @return int[]
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:43 PM
+     * @since 1.0
+     */
     private static int[] newWildCards() {
         return new int[WILDCARDS.length];
     }
 
-    // 初始化通配符的位置
+    /**
+     * 初始化通配符的位置
+     *
+     * @param pattern       给定的pattern
+     * @param nextWildCards 通配符列表
+     * @return void
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:43 PM
+     * @since 1.0
+     */
     private static void initWildCards(String pattern, int[] nextWildCards) {
         for (int i = 0; i < nextWildCards.length; i++) {
             nextWildCards[i] = pattern.indexOf(WILDCARDS[i]);
         }
     }
 
-    // 判断是否还有下一个通配符
+    /**
+     * 判断是否还有下一个通配符
+     *
+     * @param nextWildCards 通配符列表
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:43 PM
+     * @since 1.0
+     */
     private static boolean hasNextWildCards(int[] nextWildCards) {
         for (int i = 0; i < nextWildCards.length; i++) {
             if (nextWildCards[i] >= 0) {
@@ -227,14 +283,34 @@ public final class FileNameMatcher {
         return false;
     }
 
-    // 获取pattern中下一个通配符的位置, 并更新该通配符的下一个位置
+    /**
+     * 获取pattern中下一个通配符的位置, 并更新该通配符的下一个位置
+     *
+     * @param pattern        给定的pattern
+     * @param nextWildCards  通配符列表
+     * @param wildCardAndIdx 记录下一个通配符的信息
+     * @return void
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:43 PM
+     * @since 1.0
+     */
     private static void nextWildCard(String pattern, int[] nextWildCards, WildCardAndIdx wildCardAndIdx) {
         peekNextWildCard(pattern, nextWildCards, wildCardAndIdx);
 
         nextWildCards[wildCardAndIdx.wildCardIdx] = pattern.indexOf(WILDCARDS[wildCardAndIdx.wildCardIdx], wildCardAndIdx.pos + 1);
     }
 
-    // 获取pattern中下一个通配符的数据, 放到wildCardAndIdx中
+    /**
+     * 获取pattern中下一个通配符的数据, 放到wildCardAndIdx中
+     *
+     * @param fileName       文件名称
+     * @param nextWildCards  通配符列表
+     * @param wildCardAndIdx 记录下一个通配符的信息
+     * @return void
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:44 PM
+     * @since 1.0
+     */
     private static void peekNextWildCard(String fileName, int[] nextWildCards, WildCardAndIdx wildCardAndIdx) {
         int next = getMinIdx(nextWildCards);
         wildCardAndIdx.wildCardIdx = next;
@@ -246,7 +322,15 @@ public final class FileNameMatcher {
         }
     }
 
-    // 获取pattern中下一个的通配符的索引
+    /**
+     * 获取pattern中下一个的通配符的索引
+     *
+     * @param nextWildCards 通配符列表
+     * @return int
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:45 PM
+     * @since 1.0
+     */
     private static int getMinIdx(int[] nextWildCards) {
         int min = Integer.MAX_VALUE, idx = -1;
         for (int i = 0; i < nextWildCards.length; i++) {
@@ -260,7 +344,16 @@ public final class FileNameMatcher {
         return idx;
     }
 
-    // 判断给定的字符数组中是否包含给定的字符
+    /**
+     * 判断给定的字符数组中是否包含给定的字符
+     *
+     * @param chars 给定的char列表
+     * @param ch    需要寻找的的char
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:46 PM
+     * @since 1.0
+     */
     private static boolean contains(char[] chars, char ch) {
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == ch) {
@@ -271,9 +364,21 @@ public final class FileNameMatcher {
         return false;
     }
 
-    // 通配符的索引, 以及其当前位置
+    /**
+     * 通配符的索引, 以及其当前位置
+     *
+     * @author Jerry.X.He <970655147@qq.com>
+     * @version 1.0
+     * @date 5/5/2017 8:46 PM
+     */
     private static class WildCardAndIdx {
+        /**
+         * 通配符的索引
+         */
         public int wildCardIdx;
+        /**
+         * 在context中该通配符的位置[会改变]
+         */
         public int pos;
 
         public String toString() {
