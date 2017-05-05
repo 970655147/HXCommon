@@ -26,8 +26,8 @@ public final class ReflectUtils {
      * 2. implements
      * 3. recurse superTypes [1. incase of 'PrimitiveTypes', 2. incase of 'java.lang.Object' ]
      *
-     * @param type
-     * @param clazz
+     * @param type  给定的类型
+     * @param clazz 需要判定的目标clazz
      * @return boolean
      * @author Jerry.X.He
      * @date 5/5/2017 8:25 PM

@@ -30,32 +30,6 @@ public final class ProjectToJar {
         InnerTools.assert0("can't instantiate !");
     }
 
-    /**
-     * 将给定的projectPath的数据拷贝到给定的jarPath中, manifestEntrys为需要写出的清单文件的内容
-     *
-     * @param projectPath    项目的路径
-     * @param jarPath        jar的路径
-     * @param manifestEntrys 清单文件的条目
-     * @param filter         需要过滤掉的文件的filter
-     * @return void
-     * @author Jerry.X.He
-     * @date 5/5/2017 8:00 PM
-     * @since 1.0
-     */
-    public static void updateJarAndSrc(String projectPath, String jarPath, Map<String, String> manifestEntrys,
-                                       FileNameFilter filter) throws IOException {
-        JarOutputStream jarJos = null;
-        try {
-            jarJos = new JarOutputStream(new BufferedOutputStream(new FileOutputStream(jarPath)));
-            updateJarAndSrc0(new File(projectPath), jarJos, "", 0, filter);
-            writeManifest(jarJos, manifestEntrys);
-        } finally {
-            if (jarJos != null) {
-                jarJos.close();
-            }
-        }
-    }
-
     // 清单文件的常量, 以及一些常量
     /**
      * Manifest-Version
@@ -99,6 +73,32 @@ public final class ProjectToJar {
         manifestEntrysTemplates.put(MANIFEST_VERSION, DEFAULT_MANIFEST_VERSION);
         manifestEntrysTemplates.put(MAIN_CLASS, DEFAULT_MAIN_CLASS);
         manifestEntrysTemplates.put(CREATED_BY, DEFAULT_CREATED_BY);
+    }
+
+    /**
+     * 将给定的projectPath的数据拷贝到给定的jarPath中, manifestEntrys为需要写出的清单文件的内容
+     *
+     * @param projectPath    项目的路径
+     * @param jarPath        jar的路径
+     * @param manifestEntrys 清单文件的条目
+     * @param filter         需要过滤掉的文件的filter
+     * @return void
+     * @author Jerry.X.He
+     * @date 5/5/2017 8:00 PM
+     * @since 1.0
+     */
+    public static void updateJarAndSrc(String projectPath, String jarPath, Map<String, String> manifestEntrys,
+                                       FileNameFilter filter) throws IOException {
+        JarOutputStream jarJos = null;
+        try {
+            jarJos = new JarOutputStream(new BufferedOutputStream(new FileOutputStream(jarPath)));
+            updateJarAndSrc0(new File(projectPath), jarJos, "", 0, filter);
+            writeManifest(jarJos, manifestEntrys);
+        } finally {
+            if (jarJos != null) {
+                jarJos.close();
+            }
+        }
     }
 
     /**
@@ -190,7 +190,7 @@ public final class ProjectToJar {
         Iterator<Entry<String, String>> it = manifestEntrys.entrySet().iterator();
         while (it.hasNext()) {
             Entry<String, String> entry = it.next();
-            if ((!FileNameMatcher.isEmpty(entry.getKey())) && (!FileNameMatcher.isEmpty(entry.getValue()))) {
+            if ((!InnerTools.isEmpty(entry.getKey())) && (!InnerTools.isEmpty(entry.getValue()))) {
                 sb.append(entry.getKey());
                 sb.append(SEP);
                 sb.append(entry.getValue());

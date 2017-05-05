@@ -87,6 +87,8 @@ public final class FileNameMatcher {
         return match(fileName, pattern, false);
     }
 
+    // ----------------- 辅助方法 -----------------------
+
     /**
      * 判定str01[start01, start01+len], str02[start02, start02+len]在区间是否相同
      *
@@ -100,26 +102,13 @@ public final class FileNameMatcher {
      * @date 5/5/2017 8:40 PM
      * @since 1.0
      */
-    public static boolean equalsInRange(String str01, int start01, String str02, int start02, int len) {
+    private static boolean equalsInRange(String str01, int start01, String str02, int start02, int len) {
         for (int i = 0; i < len; i++) {
             if (str01.charAt(start01 + i) != str02.charAt(start02 + i)) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * 判断给定的字符串是否为空
-     *
-     * @param str 给定的字符串
-     * @return boolean
-     * @author Jerry.X.He
-     * @date 5/5/2017 8:41 PM
-     * @since 1.0
-     */
-    public static boolean isEmpty(String str) {
-        return (str == null) || "".equals(str.trim());
     }
 
     /**
@@ -180,7 +169,7 @@ public final class FileNameMatcher {
                         strBetweenNextWildCard = pattern.substring(curPos + 1);
                     }
                     // 处理pattern的最后一个字符为*的场景
-                    if (isEmpty(strBetweenNextWildCard)) {
+                    if (InnerTools.isEmpty(strBetweenNextWildCard)) {
                         return true;
                     }
 
