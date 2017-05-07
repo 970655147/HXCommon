@@ -31,6 +31,18 @@ public final class InnerTools {
      * null的字面量
      */
     public static final String NULL = "null";
+    /**
+     * \
+     */
+    public static final String SLASH = "\\";
+    /**
+     * /
+     */
+    public static final String INV_SLASH = "/";
+    /**
+     * 需要被转义的字符
+     */
+    public static final Set<Character> NEED_BE_TRANSFER = asSet('"', '\'', '\\');
 
     // disable constructor
     private InnerTools() {
@@ -97,16 +109,103 @@ public final class InnerTools {
     }
 
     /**
+     * 如果给定的字符串以startsWith开头, 则移除startsWith
+     *
+     * @param str        给定的字符串
+     * @param startsWith 给定的前缀
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/5/2017 4:36 PM
+     * @since 1.0
+     */
+    public static String removeIfStartsWith(String str, String startsWith) {
+        assert0(str != null, "'str' can't be null ");
+        assert0(startsWith != null, "'startsWith' can't be null ");
+
+        if (str.startsWith(startsWith)) {
+            return str.substring(startsWith.length());
+        }
+
+        return str;
+    }
+
+    /**
+     * 如果给定的字符串以endsWith开头, 则移除endsWith
+     *
+     * @param str      给定的字符串
+     * @param endsWith 给定的后缀
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/5/2017 4:54 PM
+     * @since 1.0
+     */
+    public static String removeIfEndsWith(String str, String endsWith) {
+        assert0(str != null, "'str' can't be null ");
+        assert0(endsWith != null, "'endsWith' can't be null ");
+
+        if (str.endsWith(endsWith)) {
+            return str.substring(0, str.length() - endsWith.length());
+        }
+
+        return str;
+    }
+
+    /**
+     * 如果给定的字符串不以startsWith开头, 则添加startsWith
+     *
+     * @param str        给定的字符串
+     * @param startsWith 给定的前缀
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/5/2017 4:55 PM
+     * @since 1.0
+     */
+    public static String addIfNotStartsWith(String str, String startsWith) {
+        assert0(str != null, "'str' can't be null ");
+        assert0(startsWith != null, "'startsWith' can't be null ");
+
+        if (!str.startsWith(startsWith)) {
+            return startsWith + str;
+        }
+
+        return str;
+    }
+
+    /**
+     * 如果给定的字符串不以endsWith开头, 则添加endsWith
+     *
+     * @param str      给定的字符串
+     * @param endsWith 给定的后缀
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/5/2017 4:54 PM
+     * @since 1.0
+     */
+    public static String addIfNotEndsWith(String str, String endsWith) {
+        assert0(str != null, "'str' can't be null ");
+        assert0(endsWith != null, "'endsWith' can't be null ");
+
+        if (!str.endsWith(endsWith)) {
+            return str + endsWith;
+        }
+
+        return str;
+    }
+
+    /**
      * 移除掉sb的添加的最后一个分隔符
      *
-     * @param sb      给定的StringBuilder
-     * @param lastSep 最后的一个分隔符
+     * @param sb      给定的字符串
+     * @param lastSep 最后一个分隔符
      * @return void
      * @author Jerry.X.He
-     * @date 5/2/2017 9:21 PM
+     * @date 5/5/2017 4:55 PM
      * @since 1.0
      */
     public static void removeLastSep(StringBuilder sb, String lastSep) {
+        assert0(sb != null, "'sb' can't be null ");
+        assert0(lastSep != null, "'lastSep' can't be null ");
+
         if (sb.length() > lastSep.length()) {
             sb.delete(sb.length() - lastSep.length(), sb.length());
         }
@@ -145,7 +244,7 @@ public final class InnerTools {
      * @since 1.0
      */
     public static String lowerCaseFirstChar(String str) {
-        assert0(! isEmpty(str), "'str' is null ");
+        assert0(!isEmpty(str), "'str' is null ");
         if (str.length() == 1) {
             return str.toLowerCase();
         }
@@ -213,5 +312,31 @@ public final class InnerTools {
         }
         return result;
     }
+
+    /**
+     * 转义给定的字符串
+     *
+     * @param str 给定的字符串
+     * @return java.lang.String
+     * @author Jerry.X.He
+     * @date 5/7/2017 2:18 PM
+     * @since 1.0
+     */
+    public static String transfer(String str) {
+        if (InnerTools.isEmpty(str)) {
+            return str;
+        }
+
+        StringBuilder sb = new StringBuilder(str.length() << 1);
+        for (int i = 0, len = str.length(); i < len; i++) {
+            Character ch = str.charAt(i);
+            if (NEED_BE_TRANSFER.contains(ch)) {
+                sb.append(SLASH);
+            }
+            sb.append(ch);
+        }
+        return sb.toString();
+    }
+
 
 }

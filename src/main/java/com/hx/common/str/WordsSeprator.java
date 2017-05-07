@@ -381,7 +381,8 @@ public final class WordsSeprator implements Iterator<String> {
             if (escapeMap != null) {
                 for (Entry<String, String> entry : escapeMap.entrySet()) {
                     if (str.startsWith(entry.getKey(), idx)) {
-                        idx = str.indexOf(entry.getValue(), idx + entry.getKey().length());
+//                        idx = str.indexOf(entry.getValue(), idx + entry.getKey().length());
+                        idx = indexOfNonTransfer(str, entry.getValue(), idx + entry.getKey().length());
                         if (idx < 0) {
                             break whileLoop;
                         }
@@ -395,6 +396,28 @@ public final class WordsSeprator implements Iterator<String> {
                 return idx;
             }
             idx++;
+        }
+
+        return -1;
+    }
+
+    /**
+     * 获取str中从start开始下一个target的位置
+     * 注意, 如果给定的位置前面是转义字符 "\", 则跳过 该匹配
+     *
+     * @param str    给定的字符串
+     * @param target 目标字符串
+     * @param start  开始的位置
+     * @return int
+     * @author Jerry.X.He
+     * @date 5/6/2017 5:57 PM
+     * @since 1.0
+     */
+    private int indexOfNonTransfer(String str, String target, int start) {
+        for (int i = start, len = str.length(); i < len; i++) {
+            if (str.startsWith(target, i) && ((i - 1 < 0) || (str.charAt(i - 1)) != '\\')) {
+                return i;
+            }
         }
 
         return -1;
