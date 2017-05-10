@@ -40,6 +40,14 @@ public final class InnerTools {
      */
     public static final String INV_SLASH = "/";
     /**
+     * "
+     */
+    public static final String QUOTE = "\"";
+    /**
+     * '
+     */
+    public static final String SINGLE_QUOTE = "'";
+    /**
      * 需要被转义的字符
      */
     public static final Set<Character> NEED_BE_TRANSFER = asSet('"', '\'', '\\');
@@ -322,15 +330,15 @@ public final class InnerTools {
      * @date 5/7/2017 2:18 PM
      * @since 1.0
      */
-    public static String transfer(String str) {
-        if (InnerTools.isEmpty(str)) {
+    public static String transfer(String str, Set<Character> needToBeTransfer) {
+        if (InnerTools.isEmpty(str) || InnerTools.isEmpty(needToBeTransfer)) {
             return str;
         }
 
         StringBuilder sb = new StringBuilder(str.length() << 1);
         for (int i = 0, len = str.length(); i < len; i++) {
             Character ch = str.charAt(i);
-            if (NEED_BE_TRANSFER.contains(ch)) {
+            if (needToBeTransfer.contains(ch)) {
                 sb.append(SLASH);
             }
             sb.append(ch);
@@ -338,5 +346,8 @@ public final class InnerTools {
         return sb.toString();
     }
 
+    public static String transfer(String str) {
+        return transfer(str, NEED_BE_TRANSFER);
+    }
 
 }
