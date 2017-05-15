@@ -6,10 +6,10 @@
 
 package com.hx.common.str;
 
+import com.hx.common.interf.seprator.StringSeprator;
 import com.hx.common.util.AssertUtils;
 import com.hx.common.util.InnerTools;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,7 +22,7 @@ import java.util.Set;
  * @version 1.0
  * @date 4/15/2017 3:01 PM
  */
-public final class WordsSeprator implements Iterator<String> {
+public final class WordsSeprator implements StringSeprator {
 
     /**
      * 给定的字符串
@@ -125,14 +125,6 @@ public final class WordsSeprator implements Iterator<String> {
         this(str, seps, escapeMap, true, false);
     }
 
-    /**
-     * 获取是否还有下一个元素, 如果结果返回true, 则调用next()方法返回对应的结果[分割的字符串, 或者分隔符], 否则返回null
-     *
-     * @return boolean true if next() will return legal result, or else next() will return null
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:53 PM
-     * @since 1.0
-     */
     @Override
     public boolean hasNext() {
         if (next != null) {
@@ -183,14 +175,6 @@ public final class WordsSeprator implements Iterator<String> {
         return hasNext();
     }
 
-    /**
-     * 获取分割给定的字符串的下一个结果[分割的字符串, 或者分隔符]
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
     @Override
     public String next() {
         prev = current;
@@ -210,78 +194,35 @@ public final class WordsSeprator implements Iterator<String> {
         return res;
     }
 
-    /**
-     * 获取上一次next调用返回的结果
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
     public String current() {
         if (!hasNext()) ;
         return current;
     }
 
-    /**
-     * 获取上一次next调用返回的结果的开始位置索引
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public int currentStartIdx() {
         if (!hasNext()) ;
         return currentStartIdx;
     }
 
-    /**
-     * 获取上上一次next调用返回的结果
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public String prev() {
         if (!hasNext()) ;
         return prev;
     }
 
-    /**
-     * 获取上上一次next调用返回的结果的开始位置索引
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public int prevStartIdx() {
         if (!hasNext()) ;
         return prevStartIdx;
     }
 
-    /**
-     * 获取当前处理的字符串的长度
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public int length() {
         return str.length();
     }
 
-    /**
-     * 获取下一个next将要返回的结果, 但是 不会偏移索引等等
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public String seek() {
         if (!hasNext()) {
             return null;
@@ -289,40 +230,19 @@ public final class WordsSeprator implements Iterator<String> {
         return next;
     }
 
-    /**
-     * 获取当前字符串的剩余的未处理字符串部分
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public String rest() {
         if (!hasNext()) ;
         return str.substring(currentStartIdx + current.length());
     }
 
-    /**
-     * 上一个next()返回的结果 + 获取当前字符串的剩余的未处理字符串部分
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public String currentAndRest() {
         if (!hasNext()) ;
         return str.substring(currentStartIdx);
     }
 
-    /**
-     * 获取str.subString(pos)
-     *
-     * @return java.lang.String
-     * @author Jerry.X.He
-     * @date 4/15/2017 2:54 PM
-     * @since 1.0
-     */
+    @Override
     public String rest(int pos) {
         if ((pos < 0) || (pos >= str.length())) {
             return null;
