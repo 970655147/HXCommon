@@ -17,7 +17,7 @@ public interface Result {
      * @date 5/3/2017 8:43 PM
      * @since 1.0
      */
-    boolean success();
+    boolean isSuccess();
 
     /**
      * 结果响应码
@@ -27,7 +27,7 @@ public interface Result {
      * @date 5/3/2017 8:43 PM
      * @since 1.0
      */
-    int code();
+    int getCode();
 
     /**
      * 结果消息
@@ -37,7 +37,7 @@ public interface Result {
      * @date 5/3/2017 8:43 PM
      * @since 1.0
      */
-    String msg();
+    String getMsg();
 
     /**
      * 当前结果的数据
@@ -47,7 +47,7 @@ public interface Result {
      * @date 5/3/2017 8:43 PM
      * @since 1.0
      */
-    Object data();
+    Object getData();
 
     /**
      * 当前结果的额外数据
@@ -57,6 +57,6 @@ public interface Result {
      * @date 5/3/2017 8:43 PM
      * @since 1.0
      */
-    Object extra();
+    Object getExtra();
 
 }
