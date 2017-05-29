@@ -49,17 +49,19 @@ public class SimplePage<T> implements Page<T> {
         this(1, 10);
     }
 
+    public void setTotalRecord(int totalRecord) {
+        this.totalRecord = totalRecord;
+        this.totalPage = (totalRecord - 1) / pageSize + 1;
+    }
+
+    @Override
     public void setPageNow(int pageNow) {
         this.pageNow = pageNow;
     }
 
+    @Override
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public void setTotalRecord(int totalRecord) {
-        this.totalRecord = totalRecord;
-        this.totalPage = (totalRecord - 1) / pageSize + 1;
     }
 
     public void setList(List<T> list) {

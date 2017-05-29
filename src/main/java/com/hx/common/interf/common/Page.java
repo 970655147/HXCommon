@@ -65,4 +65,31 @@ public interface Page<T> {
      */
     List<T> getList();
 
+    /**
+     * 设置当前页数
+     *
+     * @author Jerry.X.He
+     * @date 5/21/2017 4:07 PM
+     * @since 1.0
+     */
+    void setPageNow(int pageNow);
+
+    /**
+     * 设置每一页的大小
+     *
+     * @author Jerry.X.He
+     * @date 5/21/2017 4:07 PM
+     * @since 1.0
+     */
+    void setPageSize(int pageSize);
+
+    /**
+     * 配置当前页面的数据
+     *
+     * @author Jerry.X.He
+     * @date 5/21/2017 4:07 PM
+     * @since 1.0
+     */
+    void setList(List<T> list);
+
 }
