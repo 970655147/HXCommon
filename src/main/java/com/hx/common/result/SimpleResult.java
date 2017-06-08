@@ -101,4 +101,9 @@ public class SimpleResult implements Result {
     public Object getExtra() {
         return extra;
     }
+
+    @Override
+    public void setExtra(Object extra) {
+        this.extra = extra;
+    }
 }

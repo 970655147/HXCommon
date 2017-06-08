@@ -28,5 +28,15 @@ public interface IdxIterator {
 	 * @since 1.0
 	 */
 	int next();
+
+	/**
+	 * 根据当前的状态, 复制一个 IdxIterator
+	 *
+	 * @return the copied IdxIterator of this
+	 * @author Jerry.X.He
+	 * @date 6/8/2017 6:58 PM
+	 * @since 1.0
+	 */
+	IdxIterator copy();
 	
 }

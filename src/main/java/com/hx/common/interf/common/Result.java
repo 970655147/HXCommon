@@ -59,4 +59,14 @@ public interface Result {
      */
     Object getExtra();
 
+    /**
+     * 配置结果的额外数据
+     *
+     * @return the extra data binding on current result
+     * @author Jerry.X.He
+     * @date 5/3/2017 8:43 PM
+     * @since 1.0
+     */
+    void setExtra(Object extra);
+
 }

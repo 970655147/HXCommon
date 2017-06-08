@@ -84,6 +84,15 @@ public interface Page<T> {
     void setPageSize(int pageSize);
 
     /**
+     * 设置总记录数
+     *
+     * @author Jerry.X.He
+     * @date 5/21/2017 4:07 PM
+     * @since 1.0
+     */
+    void setTotalRecord(int pageSize);
+
+    /**
      * 配置当前页面的数据
      *
      * @author Jerry.X.He

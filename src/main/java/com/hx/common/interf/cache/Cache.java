@@ -13,6 +13,28 @@ import java.util.List;
 public interface Cache<K, V> {
 
     /**
+     * 添加 CacheListener
+     *
+     * @param cacheListener cacheListener
+     * @return
+     * @author Jerry.X.He
+     * @date 6/8/2017 8:07 PM
+     * @since 1.0
+     */
+    void addCacheListener(CacheListener<K, V> cacheListener);
+
+    /**
+     * 移除 CacheListener
+     *
+     * @param cacheListener cacheListener
+     * @return
+     * @author Jerry.X.He
+     * @date 6/8/2017 8:07 PM
+     * @since 1.0
+     */
+    boolean removeCacheListener(CacheListener<K, V> cacheListener);
+
+    /**
      * 根据给定的key, 从缓存中拿对应的value
      *
      * @param key 给定的key

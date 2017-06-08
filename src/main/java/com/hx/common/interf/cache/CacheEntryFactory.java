@@ -32,4 +32,16 @@ public interface CacheEntryFactory {
      */
     <K, V> CacheEntryFacade<K, V> createFacade(CacheEntry<K, V> entry);
 
+    /**
+     * ´´½¨ CacheContext
+     *
+     * @param cache cache
+     * @param entry entry
+     * @return
+     * @author Jerry.X.He
+     * @date 6/8/2017 8:21 PM
+     * @since 1.0
+     */
+    <K, V> CacheContext<K, V> createContext(Cache<K, V> cache, CacheEntry<K, V> entry);
+
 }

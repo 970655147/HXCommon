@@ -20,4 +20,14 @@ public interface IdxFilter {
      */
     boolean filter(int idx);
 
+    /**
+     * 复制一个向前的 IdxFilter
+     *
+     * @return
+     * @author Jerry.X.He
+     * @date 6/8/2017 7:15 PM
+     * @since 1.0
+     */
+    IdxFilter copy();
+
 }
