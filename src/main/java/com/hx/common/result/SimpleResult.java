@@ -102,8 +102,34 @@ public class SimpleResult implements Result {
         return extra;
     }
 
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    @Override
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    @Override
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.data = data;
+    }
+
     @Override
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    @Override
+    public void setCode2Msg(Code2Msg<Integer, String> code2Msg) {
+        InnerTools.assert0(code2Msg != null, "'code2Msg' can't be null !");
+        setCode(code2Msg.code());
+        setMsg(code2Msg.msg());
     }
 }

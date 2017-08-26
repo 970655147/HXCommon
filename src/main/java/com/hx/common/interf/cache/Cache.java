@@ -154,7 +154,7 @@ public interface Cache<K, V> {
      * @date 4/13/2017 11:09 AM
      * @since 1.0
      */
-    boolean evict(K key);
+    V evict(K key);
 
     /**
      * 清理缓存的keys对应的条目
@@ -164,7 +164,7 @@ public interface Cache<K, V> {
      * @date 4/13/2017 11:09 AM
      * @since 1.0
      */
-    boolean evict(Collection<K> keys);
+    List<V> evict(Collection<K> keys);
 
     /**
      * 配置当前缓存的状态[读写等等控制]

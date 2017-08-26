@@ -56,4 +56,21 @@ public final class ReflectUtils {
         return implements0(superType, clazz);
     }
 
+    /**
+     * 判断给定的 class 是否是 原始类型的包装类
+     *
+     * @param clazz clazz
+     * @return boolean
+     * @author Jerry.X.He
+     * @date 8/9/2017 10:08 PM
+     * @since 1.0
+     */
+    public static boolean isPrimitiveWrapper(Class<?> clazz) {
+        return ((Integer.class == clazz) || (Boolean.class == clazz) || (Character.class == clazz) ||
+                (Long.class == clazz) || (Float.class == clazz) || (Double.class == clazz) || (Byte.class == clazz) ||
+                (Short.class == clazz)
+        );
+    }
+
+
 }
