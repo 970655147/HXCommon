@@ -77,6 +77,10 @@ public class SimpleResult implements Result {
         this(success, code2Msg, null);
     }
 
+    public SimpleResult() {
+        this(false, 500, null);
+    }
+
     @Override
     public boolean isSuccess() {
         return success;

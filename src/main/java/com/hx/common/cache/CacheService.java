@@ -2,6 +2,7 @@ package com.hx.common.cache;
 
 
 import com.hx.common.interf.common.Page;
+import com.hx.common.interf.common.Result;
 
 import java.util.List;
 
@@ -373,5 +374,74 @@ public interface CacheService {
      * @date 2018/7/16 15:46
      */
     <T> Page<T> getPageOrNull(String prefix, String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param key   key
+     * @param clazz clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getResultOrNull(String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param prefix prefix
+     * @param key    key
+     * @param clazz  clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getResultOrNull(String prefix, String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param key   key
+     * @param clazz clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getListResultOrNull(String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param prefix prefix
+     * @param key    key
+     * @param clazz  clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getListResultOrNull(String prefix, String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param key   key
+     * @param clazz clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getPageResultOrNull(String key, Class<T> clazz);
+
+    /**
+     * 根据 key 获取缓存的字符串, 转换为 给定的 clazz 对象
+     *
+     * @param prefix prefix
+     * @param key    key
+     * @param clazz  clazz
+     * @return
+     * @author Jerry.X.He
+     * @date 2018/7/16 15:46
+     */
+    <T> Result getPageResultOrNull(String prefix, String key, Class<T> clazz);
 
 }
